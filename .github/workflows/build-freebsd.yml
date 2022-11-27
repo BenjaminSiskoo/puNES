@@ -1,0 +1,32 @@
+name: Build on FreeBSD
+
+on:
+  push:
+    #branches:
+    #  - master
+  #pull_request:
+    #branches:
+      #- master
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-12
+    name: with Qt5 and FFmpeg
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test in FreeBSD
+      id: test
+      uses: vmactions/freebsd-vm@v0.3.0
+      with:
+        usesh: true
+        mem: 2048
+        sync: rsync
+        copyback: true
+        prepare: pkg install -y devel/cmake devel/ninja devel/pkgconf devel/git devel/qt5 multimedia/ffmpeg audio/sndio
+        run: |
+          cmake -B build -G Ninja -DENABLE_RELEASE=ON -DENABLE_FFMPEG=ON .
+          cmake --build build -j2
