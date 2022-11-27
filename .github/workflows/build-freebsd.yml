@@ -27,5 +27,5 @@ jobs:
         sync: sshfs
         prepare: pkg install -y devel/cmake devel/ninja devel/pkgconf devel/git multimedia/ffmpeg audio/sndio devel/qt5-qmake devel/qt5-core x11-toolkits/qt5-gui x11-toolkits/qt5-widgets graphics/qt5-svg devel/qt5-linguisttools
         run: |
-          cmake -B build -G Ninja -DENABLE_RELEASE=ON -DENABLE_FFMPEG=ON .
+          cmake -B build -G Ninja -DQt5_DIR=/usr/local/lib/qt5/cmake/Qt5 -DENABLE_RELEASE=ON -DENABLE_FFMPEG=ON .
           cmake --build build -j2
