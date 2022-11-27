@@ -17,15 +17,14 @@ jobs:
     runs-on: macos-12
     name: with Qt5 and FFmpeg
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Test in FreeBSD
       id: test
       uses: vmactions/freebsd-vm@v0.3.0
       with:
         usesh: true
         mem: 2048
-        sync: rsync
-        copyback: true
+        sync: sshfs
         prepare: pkg install -y devel/cmake devel/ninja devel/pkgconf devel/git multimedia/ffmpeg audio/sndio devel/qt5-qmake devel/qt5-core x11-toolkits/qt5-gui x11-toolkits/qt5-widgets graphics/qt5-svg devel/qt5-linguisttools
         run: |
           cmake -B build -G Ninja -DENABLE_RELEASE=ON -DENABLE_FFMPEG=ON .
