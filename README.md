@@ -182,9 +182,12 @@ to start the emulator
 * (optional) [ffmpeg libraries >= 4.0](https://ffmpeg.org) if you want video and audio recording support (libavcodec, libavformat, libavutil, libswresample and libswscale). See [notes](#movie_camera-ffmpeg).
 #### Compilation of puNES
 ```bash
+sudo pkg install -y devel/cmake devel/ninja devel/pkgconf devel/git multimedia/ffmpeg audio/sndio devel/qt5-qmake
+sudo pkg install -y devel/qt5-buildtools devel/qt5-core x11-toolkits/qt5-gui x11-toolkits/qt5-widgets graphics/qt5-svg
+sudo pkg install -y devel/qt5-linguisttools
 git clone https://github.com/punesemu/puNES
 cd puNES
-Qt5_DIR="/usr/local/lib/qt5/cmake/Qt5" cmake -B build -G Ninja -DENABLE_FFMPEG=ON
+cmake -B build -G Ninja -DQt5_DIR=/usr/local/lib/qt5/cmake/Qt5 -DENABLE_FFMPEG=ON
 cmake --build build -j2
 ```
 the executable `punes` is in the `build/src` directory.
@@ -205,7 +208,7 @@ where `[...]` are the other necessary options.
 ```bash
 git clone https://github.com/punesemu/puNES
 cd puNES
-Qt5_DIR="/usr/local/lib/qt5/cmake/Qt5" cmake -B build -G Ninja -DENABLE_FFMPEG=ON
+cmake -B build -G Ninja -DQt5_DIR=/usr/local/lib/qt5/cmake/Qt5 -DENABLE_FFMPEG=ON
 cmake --build build -j2
 ```
 the executable `punes` is in the `buid/src` directory.
